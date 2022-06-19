@@ -12,11 +12,11 @@ from keras.layers import Dense
 #
 # X = dataset[:, 0:10]
 # Y = dataset[:, 10]
-
+#
 # min_max_scaler = preprocessing.MinMaxScaler()
 # X_scale = min_max_scaler.fit_transform(X)
-
-# X_scale = X
+#
+# X_scale = preprocessing.normalize(X)
 #
 # X_train, X_val_and_test, Y_train, Y_val_and_test = train_test_split(X_scale, Y, test_size=0.3)
 #
@@ -33,23 +33,24 @@ from keras.layers import Dense
 #               metrics=['accuracy'])
 #
 # hist = model.fit(X_train, Y_train,
-#                  batch_size=16, epochs=150,
+#                  batch_size=32, epochs=150,
 #                  validation_data=(X_val, Y_val))
 #
 # accuracy_result = model.evaluate(X_test, Y_test)[1]
 # print(accuracy_result)
 #
-# model.save("training2.h5")
+# model.save("training3.h5")
 
 
 # my_array_1 = [[0.04159948, 0.44444444, 0.75, 0.17774141, 0.33333333, 0., 0.375, 0.33333333, 0., 0.34555712]]  # 0
 # my_array_2 = [[0.03879502, 0.55555556, 0.5, 0.23175123, 0.33333333, 0., 0.375, 0.41666667, 0.66666667, 0.29478138]]  # 1
 
-model = keras.models.load_model("training2.h5")
+model = keras.models.load_model("training3.h5")
 
-my_array = [[1500, 5, 5, 1114, 1, 1, 3, 6, 0, 576]]
+my_array = [[9550, 7, 5, 756, 1, 0, 3, 7, 1, 642]]
+my_array_scale = preprocessing.normalize(my_array)
 
-predict_result = model.predict(my_array)
+predict_result = model.predict(my_array_scale)
 print(predict_result)
 
 if predict_result >= 0.5:
